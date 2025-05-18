@@ -1,40 +1,32 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 
-const Loader = () => {
-  const loaderCircle = {
-    animate: {
-      scale: [1, 1.5, 1],
-      opacity: [1, 0.5, 1],
-      transition: {
-        duration: 1.5,
-        ease: "easeInOut",
-        repeat: Infinity,
-      },
-    },
-  };
+const colors = ["#e11d48", "#f59e0b", "#10b981", "#3b82f6", "#8b5cf6", "#ec4899"];
 
+export default function Loader() {
   return (
-    <div className="flex items-center justify-center bg-amber-50 h-screen bg-gray-100">
-      <div className="flex space-x-4">
-        <motion.div
-          className="w-6 h-6 bg-blue-500 rounded-full"
-          variants={loaderCircle}
-          animate="animate"
-        ></motion.div>
-        <motion.div
-          className="w-6 h-6 bg-green-500 rounded-full"
-          variants={loaderCircle}
-          animate="animate"
-        ></motion.div>
-        <motion.div
-          className="w-6 h-6 bg-red-500 rounded-full"
-          variants={loaderCircle}
-          animate="animate"
-        ></motion.div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-amber-100">
+      <div className="flex gap-3">
+        {colors.map((color, index) => (
+          <motion.span
+            key={index}
+            className="w-6 h-6 rounded-full"
+            style={{ backgroundColor: color }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.2,
+              ease: "easeInOut",
+              delay: index * 0.15,
+            }}
+          />
+        ))}
       </div>
     </div>
   );
-};
-
-export default Loader;
+}
